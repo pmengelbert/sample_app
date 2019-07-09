@@ -1,0 +1,3 @@
+<% User.all.each do |user| %>
+  <%= content_tag(:p, "ID: #{user.id}, NAME: #{user.name}") %>
+<% end %>
