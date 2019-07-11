@@ -12,7 +12,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      # Log them in automatically
+      log_in @user
+
+      # Flash a welcome message after successful signup
       flash[:success] = "Welcome, #{@user.name}!"
+
+      # Show them their profile page
       redirect_to user_url(@user)
     else
       render 'new'
