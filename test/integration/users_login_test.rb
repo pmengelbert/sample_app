@@ -52,6 +52,11 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     # were we taken back to the root url?
     assert_redirected_to root_url
+
+    # this line simulates clicking logout in a second window
+    delete logout_path
+
+    # actually follow the redirect, in order to inspect it below
     follow_redirect!
 
     # make sure the Log In link has returned to the header, and the logout and User list has disappeared
@@ -59,5 +64,22 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path, count: 0
     assert_select "a[href=?]", user_path(@sample_user), count: 0
     assert_select "a[href=?]", list_path, count: 0
+  end
+
+  test "authenticated? should return false for a user with a nil digest" do
+    assert_not @sample_user.authenticated?('')
+  end
+
+  test "login with remember checkbox checked should remember user" do
+    log_in_as(@sample_user)
+    assert_not_empty cookies[:remember_token]
+  end
+
+  test "login without check in checkbox should forget user" do
+    # log in first, to set the cookie
+    log_in_as(@sample_user, remember_me: '1')
+    # log in again with the checkbox unchecked
+    log_in_as(@sample_user, remember_me: '0')
+    assert_empty cookies[:remember_token]
   end
 end
