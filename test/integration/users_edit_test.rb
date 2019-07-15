@@ -18,5 +18,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                              password_confirmation: "bar" } }
     # make sure we're redirected to the edit page
     assert_template 'users/edit'
+
+    # make sure there are 4 error messages
+    assert_select "div.alert", text: "The form contains 4 errors."
   end
 end
