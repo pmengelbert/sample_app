@@ -41,11 +41,27 @@ module SessionsHelper
     end
   end
 
+  def current_user?(user)
+    user == current_user
+  end
+
   def logged_in?
     begin
       current_user.id
     rescue StandardError
       nil
     end
+  end
+
+  def redirect_back_or(default)
+    # redirect to the previously stored forwarding url
+    redirect_to(session[:forwarding_url] || default)
+    # remove the forwarding url
+    session.delete(:forwarding_url)
+  end
+
+  def store_location
+    # store the url the user was trying to reach in the session hash
+    session[:forwarding_url] = request.original_url if request.get?
   end
 end

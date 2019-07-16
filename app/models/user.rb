@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :name, presence: true,
      length: { maximum: 50 }
 
+
   # ensure the email is a valid one, less than 256 characters, and that it's unique
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
@@ -30,7 +31,8 @@ class User < ApplicationRecord
 
   # ensure the password is supplied and longer than 5 characters
   validates :password, presence: true,
-                       length: { minimum: 6 }
+                       length: { minimum: 6 },
+                       allow_nil: true
 
   # enable secure password functionality
   has_secure_password

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       # if the remember me box was checked, remember this
       # session
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_to user_url(@user)
+      redirect_back_or(user_url(@user))
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'

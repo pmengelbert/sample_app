@@ -42,7 +42,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", user_path(@sample_user)
-    assert_select "a[href=?]", list_path
+    assert_select "a[href=?]", users_path
 
     # send a DELETE request to the logout path
     delete logout_path
@@ -63,7 +63,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
     assert_select "a[href=?]", user_path(@sample_user), count: 0
-    assert_select "a[href=?]", list_path, count: 0
+    assert_select "a[href=?]", users_path, count: 0
   end
 
   test "authenticated? should return false for a user with a nil digest" do
