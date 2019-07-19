@@ -34,7 +34,7 @@ module SessionsHelper
       # recall the user by id
       user = User.find_by(id: user_id)
       # log  in and set us to the current user in the session
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
