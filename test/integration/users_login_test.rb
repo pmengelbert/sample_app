@@ -71,7 +71,6 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "login with remember checkbox checked should remember user" do
-    debugger
     log_in_as(@sample_user)
     assert_equal cookies[:remember_token], assigns(:user).remember_token
   end
