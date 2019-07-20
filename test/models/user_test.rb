@@ -73,4 +73,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "associated microposts should be destroyed" do
+    @user.save
+    m = @user.microposts.create!(content: "Lorem ipsem")
+    @user.destroy
+    assert_raise ActiveRecord::RecordNotFound do
+      m.reload
+    end
+  end
+
 end

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # initialize a remember_token attribute
   attr_accessor :remember_token, :activation_token, :reset_token
-  has_many :microposts
+  has_many :microposts, dependent: :destroy
 
   # downcase the email address before the save function is run
   before_save :downcase_email
