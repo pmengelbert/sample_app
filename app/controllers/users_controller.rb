@@ -45,13 +45,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy(args = {})
-    @user = args.empty? ? User.find(params[:id]) : args[:user]
-    unless args[:user].nil?
-      @user.destroy 
-      flash[:success] = "User deleted"
-      redirect_to users_url
-    end
+  def destroy
+    User.find(params[:id])
+    flash[:success] = "User deleted"
+    redirect_to users_url
   end
 
   def index
