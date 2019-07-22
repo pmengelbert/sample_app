@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/logout', to: 'static_pages#home'
   patch '/update', to: 'users#update'
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -23,4 +28,5 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:edit, :new, :create, :update]
   resources :microposts, only: [:create, :destroy, :edit, :update]
+  resources :relationships, only: [:create, :destroy]
 end
